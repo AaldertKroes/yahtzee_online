@@ -21,14 +21,11 @@ export class Dice {
     }
 
     /**
-     * Changes #locked to true. When locked, throw() can not assign a new value to currentNum.
+     * Changes #locked to either true or false.
+     * When locked, throw() can not assign a new value to currentNum.
+     * When unlocked, throw() can assign a new value to currentNum.
      */
-    lock() {this.#locked = true;}
-
-    /**
-     * Changes #locked to false. When unlocked, throw() can assign a new value to currentNum
-     */
-    unlock() {this.#locked = false;}
+    lock() {(this.#locked ? this.#locked = false : this.#locked = true);}
 
     /** Getters */
     getCurrentNum() {return this.#currentNum;}
