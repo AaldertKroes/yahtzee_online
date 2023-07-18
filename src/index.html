@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <title>Yahtzee | Game</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Aaldert Kroes">
+        <link rel="stylesheet" type="text/css" href="./index.css">
+        <link rel="stylesheet" type="text/css" href="./style/buttons.css">
     </head>
     <body>
-
+        <div class="top-bar">
+            <button type="button" class="index-buttons" id="login-button">Login</button>
+            <button type="button" class="index-buttons" id="register-button">Register</button>
+        </div>
+        <div class="game-board">
+            <button type="button" class="index-buttons" id="throw-button">Throw!</button>
+            <div id="dice-div"></div>
+        </div>
+        <div class="score-card">
+            <p>score-card placeholder</p>
+        </div>
+        <script src="./index.js" type="module"></script>
     </body>
 </html>
