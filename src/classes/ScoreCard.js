@@ -10,7 +10,7 @@ export class ScoreCard {
     #fours;
     #fives;
     #sixes;
-    #bonus;
+    #bonus = false;
 
     /** Bottom half of scorecard */
     #threeOfAKind;
@@ -33,7 +33,7 @@ export class ScoreCard {
         let totalTopScore = 0;
         upperHalf.forEach(score => (score !== undefined ? totalTopScore += score : totalTopScore += 0));
 
-        return totalScoreUpper;
+        return totalTopScore;
     }
 
     /**
@@ -80,6 +80,36 @@ export class ScoreCard {
         this.#fours = undefined;    this.#smallStraight = undefined;
         this.#fives = undefined;    this.#largeStraight = undefined;
         this.#sixes = undefined;    this.#yahtzee = undefined;
-        this.#bonus = undefined;    this.#chance = undefined;
+        this.#bonus = false;        this.#chance = undefined;
+    }
+
+    /**
+     * Creates an object with all the scores of the scorecard.
+     * This is representend in key/value pairs where the key is the name of said score, and the value is a number with the score.
+     * @returns object with key/value pairs
+     */
+    toObject(){
+        return {
+            "aces": this.#aces,
+            "twos": this.#twos,
+            "threes": this.#threes,
+            "fours": this.#fours,
+            "fives": this.#fives,
+            "sixes": this.#sixes,
+            "totalScoreUpper": this.totalTop(),
+            "bonus": this.#bonus,
+            "totalUpper": this.upperTotal(),
+
+            "threeOfAKind": this.#threeOfAKind,
+            "fourOfAKind": this.#fourOfAKind,
+            "fullHouse": this.#fullHouse,
+            "smallStraight": this.#smallStraight,
+            "largeStraight": this.#largeStraight,
+            "yahtzee": this.#yahtzee,
+            "chance": this.#chance,
+            "totalLower": this.lowerTotal(),
+
+            "grandTotal": this.lowerTotal() + this.upperTotal()
+        };
     }
 }

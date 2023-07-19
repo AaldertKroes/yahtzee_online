@@ -3,6 +3,8 @@ import { Dice } from "./classes/Dice.js";
 import { ScoreCard } from "./classes/ScoreCard.js";
 
 const scoreCard = new ScoreCard();
+console.log(scoreCard.toObject());
+updateScorecard();
 
 const amountOfDice = 5;
 let dice = [];
@@ -16,6 +18,7 @@ for(let i = 0; i < amountOfDice; i++){
 }
 
 updateDice();
+
 
 /** Eventlisteners */
 // Update images upon throwing
@@ -42,10 +45,28 @@ loginButton.addEventListener('click', evt => window.location.href = "./web_pages
 const registerButton = document.getElementById("register-button");
 registerButton.addEventListener('click', evt => window.location.href = "./web_pages/login.html");
 
+
 /** Help functions */
+/**
+ * Outputs the correct image of the dice with their new values.
+ */
 function updateDice() {
     for(let i = 0; i < amountOfDice; i++){
         let currentDieNum = dice[i].getCurrentNum();
         document.getElementById(`dice-nr${i}`).src = `./images/dice_${currentDieNum}.jpg`;
     }
+}
+
+/**
+ * Updates the scoreboard when a new value is added to it.
+ */
+function updateScorecard() {
+    let scorecardScores = scoreCard.toObject();
+    let scorecard = document.getElementById("score-card-values");
+    let p = "";
+    
+    for(const key in scorecardScores){
+        p += `<p>${key}: ${scorecardScores[key]}</p>`;
+    }
+    scorecard.innerHTML = p;
 }
