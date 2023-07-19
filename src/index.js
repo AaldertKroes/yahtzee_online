@@ -1,5 +1,8 @@
+/** Imports */
 import { Dice } from "./classes/Dice.js";
 import { ScoreCard } from "./classes/ScoreCard.js";
+
+const scoreCard = new ScoreCard();
 
 const amountOfDice = 5;
 let dice = [];

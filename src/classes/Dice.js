@@ -9,6 +9,8 @@ export class Dice {
     #currentNum = 0;
     #locked = false;
 
+    constructor() {}
+
     /**
      * Changes currentNum to one of the sides of a die, which consists of the numbers 1-6.
      * This is to simulate a new number when a die is thrown.
