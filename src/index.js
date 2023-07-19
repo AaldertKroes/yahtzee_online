@@ -14,8 +14,8 @@ for(let i = 0; i < amountOfDice; i++){
     let newDie = new Dice();
     dice.push(newDie);
     images += `<img src="./images/dice_0.jpg" class="dice-images" id="dice-nr${i}">`;
-    document.getElementById("dice-div").innerHTML = images;
 }
+document.getElementById("dice-div").innerHTML = images;
 
 updateDice();
 
@@ -63,10 +63,15 @@ function updateDice() {
 function updateScorecard() {
     let scorecardScores = scoreCard.toObject();
     let scorecard = document.getElementById("score-card-values");
-    let p = "";
+    let p = "<table id='scores'>";
     
     for(const key in scorecardScores){
-        p += `<p>${key}: ${scorecardScores[key]}</p>`;
+        if(key === "Total lower") {
+            p += `<tr id="${key}"><td id="${key}-name">${key}</td><td id="${key}-value">${(scorecardScores[key] !== undefined ? scorecardScores[key] : '')}</td></tr>`;
+            p += `<tr id="Total upper"><td id="Total upper2-name">Total upper</td><td id="Total upper2-value">${scorecardScores["Total upper"]}</td></tr>`;
+        } else {
+            p += `<tr id="${key}"><td id="${key}-name">${key}</td><td id="${key}-value">${(scorecardScores[key] !== undefined ? scorecardScores[key] : '')}</td></tr>`;
+        }
     }
-    scorecard.innerHTML = p;
+    scorecard.innerHTML = p + "</table>";
 }

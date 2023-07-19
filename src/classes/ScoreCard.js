@@ -90,26 +90,68 @@ export class ScoreCard {
      */
     toObject(){
         return {
-            "aces": this.#aces,
-            "twos": this.#twos,
-            "threes": this.#threes,
-            "fours": this.#fours,
-            "fives": this.#fives,
-            "sixes": this.#sixes,
-            "totalScoreUpper": this.totalTop(),
-            "bonus": this.#bonus,
-            "totalUpper": this.upperTotal(),
+            "Aces": this.#aces,
+            "Twos": this.#twos,
+            "Threes": this.#threes,
+            "Fours": this.#fours,
+            "Fives": this.#fives,
+            "Sixes": this.#sixes,
+            "Total score upper": this.totalTop(),
+            "Bonus": this.#bonus,
+            "Total upper": this.upperTotal(),
 
-            "threeOfAKind": this.#threeOfAKind,
-            "fourOfAKind": this.#fourOfAKind,
-            "fullHouse": this.#fullHouse,
-            "smallStraight": this.#smallStraight,
-            "largeStraight": this.#largeStraight,
-            "yahtzee": this.#yahtzee,
-            "chance": this.#chance,
-            "totalLower": this.lowerTotal(),
+            "Three of a kind": this.#threeOfAKind,
+            "Four of a kind": this.#fourOfAKind,
+            "Full House": this.#fullHouse,
+            "Small straight": this.#smallStraight,
+            "Large straight": this.#largeStraight,
+            "Yahtzee": this.#yahtzee,
+            "Chance": this.#chance,
+            "Total lower": this.lowerTotal(),
 
-            "grandTotal": this.lowerTotal() + this.upperTotal()
+            "Grand total": this.lowerTotal() + this.upperTotal()
         };
     }
+
+    /** Getters & Setters */
+    getAces(){return this.#aces;}
+    setAces(score){this.#aces = score;}
+    
+    getTwos(){return this.#twos;}
+    setTwos(score){this.#twos = score;}
+
+    getThrees(){return this.#threes;}
+    setThrees(score){this.#threes = score;}
+
+    getFours(){return this.#fours;}
+    setFours(score){this.#fours = score;}
+
+    getFives(){return this.#fives;}
+    setFives(score){this.#fives = score;}
+
+    getSixes(){return this.#sixes;}
+    setSixes(score){this.#sixes = score;}
+
+    getBonus(){return this.#bonus;}
+
+    getThreeOfAKind(){return this.#threeOfAKind;}
+    setThreeOfAKind(score){this.#threeOfAKind = score;}
+
+    getFourOfAKind(){return this.#fourOfAKind;}
+    setFourOfAKind(score){this.#fourOfAKind = score;}
+
+    getFullHouse(){return this.#fullHouse;}
+    setFullHouse(score){this.#fullHouse = score;}
+
+    getSmallStraight(){return this.#smallStraight;}
+    setSmallStraight(score){this.#smallStraight = score;}
+
+    getLargeStraight(){return this.#largeStraight;}
+    setLargeStraight(score){this.#largeStraight = score;}
+
+    getYahtzee(){return this.#yahtzee;}
+    setYahtzee(score){this.#yahtzee = score;}
+
+    getChance(){return this.#chance;}
+    setChance(score){this.#chance = score;}
 }
