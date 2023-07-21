@@ -3,6 +3,8 @@
  * Each of the fields can be filled in based on the values of the dice.
  */
 export class ScoreCard {
+    #lockedFields = [];
+
     /** Top half of scorecard */
     #aces;
     #twos;
@@ -22,6 +24,112 @@ export class ScoreCard {
     #chance;
 
     constructor() {}
+
+    /**
+     * For every die that has a value of one, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all aces added together.
+     */
+    acesCheck(dice){
+        let totalAcesScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 1) totalAcesScore += 1;
+        }
+        return totalAcesScore;
+    }
+
+    /**
+     * For every die that has the value of two, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all twos added together.
+     */
+    twosCheck(dice){
+        let totalTwosScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 2) totalTwosScore += 2;
+        }
+        return totalTwosScore;
+    }
+
+    /**
+     * For every die that has the value of three, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all threes added together.
+     */
+    threesCheck(dice){
+        let totalThreesScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 3) totalThreesScore += 3;
+        }
+        return totalThreesScore;
+    }
+
+    /**
+     * For every die that has the value of four, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all fours added together.
+     */
+    foursCheck(dice){
+        let totalFoursScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 4) totalFoursScore += 4;
+        }
+        return totalFoursScore;
+    }
+
+    /**
+     * For every die that has the value of five, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all fives added together.
+     */
+    fivesCheck(dice){
+        let totalFivesScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 5) totalFivesScore += 5;
+        }
+        return totalFivesScore;
+    }
+
+    /**
+     * For every die that has the value of six, the total score will raise.
+     * @param {array} dice 
+     * @returns the score of all sixes added together.
+     */
+    sixesCheck(dice){
+        let totalSixesScore = 0;
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 6) totalSixesScore += 6;
+        }
+        return totalSixesScore;
+    }
+
+    /**
+     * Checks in an array of dice whether full house has been achieved or not.
+     * @param {array} dice 
+     * @returns true if there is full house, false if not.
+     */
+    fullHouseCheck(dice){
+        let number1 = [0,0];
+        let number2 = [0,0];
+        let ifCompleted = false;
+        for(const currentDie of dice){
+            if(number1[0] === 0 && !ifCompleted){number1 = [currentDie.getCurrentNum(), 1]; ifCompleted = true;}
+            if(number2[0] === 0 && currentDie.getCurrentNum() !== number1[0] && !ifCompleted){number2 = [currentDie.getCurrentNum(), 1]; ifCompleted = true;}
+            if(currentDie.getCurrentNum() === number1[0] && !ifCompleted){number1[1] += 1; ifCompleted = true;}
+            if(currentDie.getCurrentNum() === number2[0] && !ifCompleted){number2[1] += 1; ifCompleted = true;}
+            ifCompleted = false;
+        }
+
+        return (number1[1] === 2 && number2[1] === 3) || (number1[1] === 3 && number2[1] === 2);
+    }
+
+    /**
+     * Locks the field so the value won't be updated.
+     * @param {string} fieldName 
+     */
+    lock(fieldName){
+        this.#lockedFields.push(fieldName);
+    }
 
     /**
      * Returns the total score of the upper half disregarding the bonus.
@@ -154,4 +262,6 @@ export class ScoreCard {
 
     getChance(){return this.#chance;}
     setChance(score){this.#chance = score;}
+
+    getLocked(){return this.#lockedFields;}
 }
