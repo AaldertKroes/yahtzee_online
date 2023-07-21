@@ -44,7 +44,7 @@ loginButton.addEventListener('click', evt => window.location.href = "./web_pages
 
 // Redirect to register.html
 const registerButton = document.getElementById("register-button");
-registerButton.addEventListener('click', evt => window.location.href = "./web_pages/login.html");
+registerButton.addEventListener('click', evt => window.location.href = "./web_pages/register.html");
 
 
 /** Eventlisteners for score-card */
@@ -52,10 +52,7 @@ const acesField = document.getElementById("Aces");
 acesField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Aces")){
         scoreCard.setAces(scoreCard.acesCheck(dice));
-        scoreCard.lock("Aces");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Aces");
     }
 });
 
@@ -63,10 +60,7 @@ const twosField = document.getElementById("Twos");
 twosField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Twos")){
         scoreCard.setTwos(scoreCard.twosCheck(dice));
-        scoreCard.lock("Twos");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Twos");
     }
 });
 
@@ -74,10 +68,7 @@ const threesField = document.getElementById("Threes");
 threesField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Threes")){
         scoreCard.setThrees(scoreCard.threesCheck(dice));
-        scoreCard.lock("Threes");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Threes");
     }
 });
 
@@ -85,10 +76,7 @@ const foursField = document.getElementById("Fours");
 foursField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Fours")){
         scoreCard.setFours(scoreCard.foursCheck(dice));
-        scoreCard.lock("Fours");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Fours");
     }
 });
 
@@ -96,10 +84,7 @@ const fivesField = document.getElementById("Fives");
 fivesField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Fives")){
         scoreCard.setFives(scoreCard.fivesCheck(dice));
-        scoreCard.lock("Fives");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Fives");
     }
 });
 
@@ -107,10 +92,7 @@ const sixesField = document.getElementById("Sixes");
 sixesField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Sixes")){
         scoreCard.setSixes(scoreCard.sixesCheck(dice));
-        scoreCard.lock("Sixes");
-        scoreCard.bonusCheck();
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Sixes");
     }
 });
 
@@ -118,9 +100,23 @@ const fullHouseField = document.getElementById("Full House");
 fullHouseField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Full House")){
         (scoreCard.fullHouseCheck(dice) ? scoreCard.setFullHouse(25) : scoreCard.setFullHouse(0));
-        scoreCard.lock("Full House");
-        updateScorecard();
-        unlockAllDice();
+        scorecardClick("Full House");
+    }
+});
+
+const yahtzeeField = document.getElementById("Yahtzee");
+yahtzeeField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Yahtzee")){
+        (scoreCard.yahtzeeCheck(dice) ? scoreCard.setYahtzee(50) : scoreCard.setYahtzee(0));
+        scorecardClick("Yahtzee");
+    }
+});
+
+const chanceField = document.getElementById("Chance");
+chanceField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Chance")){
+        scoreCard.setChance(scoreCard.chanceCheck(dice));
+        scorecardClick("Chance");
     }
 });
 
@@ -173,4 +169,11 @@ function updateScorecard() {
         document.getElementById(`${key}-value`).innerHTML = (upToDateScores[key] !== undefined ? upToDateScores[key] : '');
     }
     document.getElementById('Total upper2-value').innerHTML = upToDateScores['Total upper'];
+}
+
+function scorecardClick(fieldName) {
+    scoreCard.lock(fieldName);
+    scoreCard.bonusCheck();
+    updateScorecard();
+    unlockAllDice();
 }

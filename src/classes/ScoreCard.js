@@ -124,7 +124,19 @@ export class ScoreCard {
     }
 
     yahtzeeCheck(dice){
-        
+        const checkNumber = dice[0].getCurrentNum();
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() !== checkNumber) return false;
+        }
+        return true;
+    }
+
+    chanceCheck(dice){
+        let addedScore = 0;
+        for(const currentDie of dice){
+            addedScore += currentDie.getCurrentNum();
+        }
+        return addedScore;
     }
 
     /**
