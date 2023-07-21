@@ -8,7 +8,7 @@ due to the use of JavaScript.
 ```shell
 # Navigate to src folder and run localhost
 cd src
-# If php is not in your local variables, use "<path>/php.exe" instead
+# If php is not in your local variables, use "<path>/php.exe" instead of php
 php -S localhost:<port>
 ```
 Open your webbrowser and navigate to `localhost:<port>` and index.html will be loaded.

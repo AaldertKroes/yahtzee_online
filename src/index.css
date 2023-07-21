@@ -36,6 +36,7 @@ body {
 #scores td {
     width: 50%;
     border: 1px solid #000;
+    border-radius: 1vw;
     margin: 0px 0px 0px 0px;
 }
 

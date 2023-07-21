@@ -123,6 +123,10 @@ export class ScoreCard {
         return (number1[1] === 2 && number2[1] === 3) || (number1[1] === 3 && number2[1] === 2);
     }
 
+    yahtzeeCheck(dice){
+        
+    }
+
     /**
      * Locks the field so the value won't be updated.
      * @param {string} fieldName 
