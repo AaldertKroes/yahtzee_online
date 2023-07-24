@@ -104,6 +104,22 @@ fullHouseField.addEventListener('click', evt => {
     }
 });
 
+const smallStraightField = document.getElementById("Small straight");
+smallStraightField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Small straight")){
+        (scoreCard.straightCheck(dice) >= 4 ? scoreCard.setSmallStraight(30) : scoreCard.setSmallStraight(0));
+        scorecardClick("Small straight");
+    }
+});
+
+const largeStraightField = document.getElementById("Large straight");
+largeStraightField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Large straight")){
+        (scoreCard.straightCheck(dice) === 5 ? scoreCard.setLargeStraight(40) : scoreCard.setLargeStraight(0));
+        scorecardClick("Large straight");
+    }
+});
+
 const yahtzeeField = document.getElementById("Yahtzee");
 yahtzeeField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Yahtzee")){

@@ -4,31 +4,37 @@
  */
 export class ScoreCard {
     #lockedFields = [];
-
+    /**
+     * Attributes
+     * Note: The total scores are not present in the attributes.
+     * I made the trade-off to save a little storage and use computing power
+     * to calculate the totals every single time. In return, no variables have
+     * to be made.
+     */
     /** Top half of scorecard */
-    #aces;
-    #twos;
-    #threes;
-    #fours;
-    #fives;
-    #sixes;
-    #bonus = false;
+    #aces;              // number
+    #twos;              // number
+    #threes;            // number
+    #fours;             // number
+    #fives;             // number
+    #sixes;             // number
+    #bonus = false;     // boolean
 
     /** Bottom half of scorecard */
-    #threeOfAKind;
-    #fourOfAKind;
-    #fullHouse;
-    #smallStraight;
-    #largeStraight;
-    #yahtzee;
-    #chance;
+    #threeOfAKind;      // number
+    #fourOfAKind;       // number
+    #fullHouse;         // number
+    #smallStraight;     // number
+    #largeStraight;     // number
+    #yahtzee;           // number
+    #chance;            // number
 
     constructor() {}
 
     /**
      * For every die that has a value of one, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all aces added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all aces added together.
      */
     acesCheck(dice){
         let totalAcesScore = 0;
@@ -40,8 +46,8 @@ export class ScoreCard {
 
     /**
      * For every die that has the value of two, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all twos added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all twos added together.
      */
     twosCheck(dice){
         let totalTwosScore = 0;
@@ -53,8 +59,8 @@ export class ScoreCard {
 
     /**
      * For every die that has the value of three, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all threes added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all threes added together.
      */
     threesCheck(dice){
         let totalThreesScore = 0;
@@ -66,8 +72,8 @@ export class ScoreCard {
 
     /**
      * For every die that has the value of four, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all fours added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all fours added together.
      */
     foursCheck(dice){
         let totalFoursScore = 0;
@@ -79,8 +85,8 @@ export class ScoreCard {
 
     /**
      * For every die that has the value of five, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all fives added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all fives added together.
      */
     fivesCheck(dice){
         let totalFivesScore = 0;
@@ -92,8 +98,8 @@ export class ScoreCard {
 
     /**
      * For every die that has the value of six, the total score will raise.
-     * @param {array} dice 
-     * @returns the score of all sixes added together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The score of all sixes added together.
      */
     sixesCheck(dice){
         let totalSixesScore = 0;
@@ -105,8 +111,8 @@ export class ScoreCard {
 
     /**
      * Checks in an array of dice whether full house has been achieved or not.
-     * @param {array} dice 
-     * @returns true if there is full house, false if not.
+     * @param {Dice[]} dice An array with Dice objects.
+     * @returns True if there is full house, false if not.
      */
     fullHouseCheck(dice){
         let number1 = [0,0];
@@ -123,6 +129,30 @@ export class ScoreCard {
         return (number1[1] === 2 && number2[1] === 3) || (number1[1] === 3 && number2[1] === 2);
     }
 
+    /**
+     * Sorts the dice in ascending order, then counts the consecutive dice.
+     * This method can be used for either small or large straight as it returns a number and not a boolean.
+     * @param {Dice[]} dice An array with Dice objects.
+     * @returns The number of consecutive dice.
+     */
+    straightCheck(dice){
+        let diceValues = [];
+        for(const currentDie of dice){diceValues.push(currentDie.getCurrentNum());}
+        diceValues.sort((a,b)=>a-b);
+
+        let consecutiveNumbers = 1;
+        for(let i = 1; i < 5; i++){
+            (diceValues[i] === diceValues[i-1]+1 ? consecutiveNumbers += 1 : (diceValues[i] === diceValues[i-1] ? consecutiveNumbers += 0 : consecutiveNumbers = 1));
+        }
+
+        return consecutiveNumbers;
+    }
+
+    /**
+     * Checks if all given dice have the same value.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns True if all 5 dice have the value, false if not.
+     */
     yahtzeeCheck(dice){
         const checkNumber = dice[0].getCurrentNum();
         for(const currentDie of dice){
@@ -131,6 +161,11 @@ export class ScoreCard {
         return true;
     }
 
+    /**
+     * Loops through every die and adds their values together.
+     * @param {Dice[]} dice An array with Dice objects. 
+     * @returns The total score of the dice.
+     */
     chanceCheck(dice){
         let addedScore = 0;
         for(const currentDie of dice){
@@ -150,7 +185,7 @@ export class ScoreCard {
     /**
      * Returns the total score of the upper half disregarding the bonus.
      * Mainly used for Total Score (row above BONUS) on the scorecard
-     * @returns total score of the upper section
+     * @returns Total score of the upper section
      */
     totalTop() {
         const upperHalf = [this.#aces, this.#twos, this.#threes, this.#fours, this.#fives, this.#sixes];
@@ -172,7 +207,7 @@ export class ScoreCard {
 
     /**
      * Calculates the total score of the lower half of the card.
-     * @returns total score of lower half.
+     * @returns Total score of lower half.
      */
     lowerTotal(){
         const bottomHalf = [this.#threeOfAKind, this.#fourOfAKind, this.#fullHouse, this.#smallStraight, this.#largeStraight, this.#yahtzee, this.#chance];
@@ -185,7 +220,7 @@ export class ScoreCard {
     /**
      * Calculates the total score of the upper half of the card and checks whether the
      * player gets a bonus score.
-     * @returns total score of upper half with/without bonus.
+     * @returns Total score of upper half with/without bonus.
      */
     upperTotal(){
         let totalTopBonus = this.totalTop();
@@ -210,7 +245,7 @@ export class ScoreCard {
     /**
      * Creates an object with all the scores of the scorecard.
      * This is representend in key/value pairs where the key is the name of said score, and the value is a number with the score.
-     * @returns object with key/value pairs
+     * @returns Object with key/value pairs
      */
     toObject(){
         return {
