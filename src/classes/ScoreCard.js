@@ -110,6 +110,30 @@ export class ScoreCard {
     }
 
     /**
+     * Checks the amount of dice that have the same value.
+     * This method is used in the calcualtion for 'Three of a kind', 'Four of a kind' and 'Yahtzee'.
+     * @param {Dice[]} dice 
+     * @returns The amount of dice that have the same value
+     */
+    nOfAKindCheck(dice){
+        let diceValues = [];
+        for(const currentDie of dice){
+            if(currentDie.getCurrentNum() === 0) return 0;
+            diceValues.push(currentDie.getCurrentNum());
+        }
+        diceValues.sort((a,b)=>a-b);
+
+        let consecutiveNumbers = 1;
+        let highestConsecutiveNumber = 0;
+        for(let i = 1; i < diceValues.length; i++){
+            (diceValues[i] === diceValues[i-1] ? consecutiveNumbers += 1 : consecutiveNumbers = 1);
+            if(consecutiveNumbers > highestConsecutiveNumber) highestConsecutiveNumber = consecutiveNumbers;
+        }
+
+        return highestConsecutiveNumber;
+    }
+
+    /**
      * Checks in an array of dice whether full house has been achieved or not.
      * @param {Dice[]} dice An array with Dice objects.
      * @returns True if there is full house, false if not.
@@ -141,24 +165,11 @@ export class ScoreCard {
         diceValues.sort((a,b)=>a-b);
 
         let consecutiveNumbers = 1;
-        for(let i = 1; i < 5; i++){
+        for(let i = 1; i < diceValues.length; i++){
             (diceValues[i] === diceValues[i-1]+1 ? consecutiveNumbers += 1 : (diceValues[i] === diceValues[i-1] ? consecutiveNumbers += 0 : consecutiveNumbers = 1));
         }
 
         return consecutiveNumbers;
-    }
-
-    /**
-     * Checks if all given dice have the same value.
-     * @param {Dice[]} dice An array with Dice objects. 
-     * @returns True if all 5 dice have the value, false if not.
-     */
-    yahtzeeCheck(dice){
-        const checkNumber = dice[0].getCurrentNum();
-        for(const currentDie of dice){
-            if(currentDie.getCurrentNum() !== checkNumber) return false;
-        }
-        return true;
     }
 
     /**
@@ -256,7 +267,7 @@ export class ScoreCard {
             "Fives": this.#fives,
             "Sixes": this.#sixes,
             "Total score upper": this.totalTop(),
-            "Bonus": this.#bonus,
+            "Bonus": (this.#bonus ? '✔️' : '✖️'),
             "Total upper": this.upperTotal(),
 
             "Three of a kind": this.#threeOfAKind,

@@ -12,7 +12,7 @@ export class Dice {
     constructor() {}
 
     /**
-     * Changes currentNum to one of the sides of a die, which consists of the numbers 1-6.
+     * Changes `this.#currentNum` to one of the sides of a die, which consists of the numbers 1-6.
      * This is to simulate a new number when a die is thrown.
      */
     throw() {
@@ -23,11 +23,16 @@ export class Dice {
     }
 
     /**
-     * Changes #locked to either true or false.
-     * When locked, throw() can not assign a new value to currentNum.
-     * When unlocked, throw() can assign a new value to currentNum.
+     * Changes `this.#locked` to either true or false.
+     * When locked, `this.throw()` can not assign a new value to `this.#currentNum`.
+     * When unlocked, `this.throw()` *can* assign a new value to `this.#currentNum`.
      */
     lock() {(this.#locked ? this.#locked = false : this.#locked = true);}
+
+    /**
+     * Resets `this.#currentNum` back to 0.
+     */
+    resetNum() {this.#currentNum = 0;}
 
     /** Getters */
     getCurrentNum() {return this.#currentNum;}

@@ -96,6 +96,22 @@ sixesField.addEventListener('click', evt => {
     }
 });
 
+const threeOfAKindField = document.getElementById("Three of a kind");
+threeOfAKindField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Three of a kind")){
+        (scoreCard.nOfAKindCheck(dice) >= 3 ? scoreCard.setThreeOfAKind(scoreCard.chanceCheck(dice)) : scoreCard.setThreeOfAKind(0));
+        scorecardClick("Three of a kind");
+    }
+});
+
+const fourOfAKindField = document.getElementById("Four of a kind");
+fourOfAKindField.addEventListener('click', evt => {
+    if(!scoreCard.getLocked().includes("Four of a kind")){
+        (scoreCard.nOfAKindCheck(dice) >= 4 ? scoreCard.setFourOfAKind(scoreCard.chanceCheck(dice)) : scoreCard.setFourOfAKind(0));
+        scorecardClick("Four of a kind");
+    }
+});
+
 const fullHouseField = document.getElementById("Full House");
 fullHouseField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Full House")){
@@ -123,7 +139,7 @@ largeStraightField.addEventListener('click', evt => {
 const yahtzeeField = document.getElementById("Yahtzee");
 yahtzeeField.addEventListener('click', evt => {
     if(!scoreCard.getLocked().includes("Yahtzee")){
-        (scoreCard.yahtzeeCheck(dice) ? scoreCard.setYahtzee(50) : scoreCard.setYahtzee(0));
+        (scoreCard.nOfAKindCheck(dice) === 5 ? scoreCard.setYahtzee(50) : scoreCard.setYahtzee(0));
         scorecardClick("Yahtzee");
     }
 });
@@ -147,13 +163,15 @@ function updateDice() {
     }
 }
 
-function unlockAllDice() {
+function resetDice() {
     for(let i = 0; i < 5; i++){
         if(dice[i].getLocked()){
             dice[i].lock();
             document.getElementById(`dice-nr${i}`).style.opacity = 1;
         }
+        dice[i].resetNum();
     }
+    updateDice();
 }
 
 /**
@@ -191,5 +209,5 @@ function scorecardClick(fieldName) {
     scoreCard.lock(fieldName);
     scoreCard.bonusCheck();
     updateScorecard();
-    unlockAllDice();
+    resetDice();
 }
