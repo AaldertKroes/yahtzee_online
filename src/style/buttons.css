@@ -20,6 +20,11 @@
     height: 10vw;
 }
 
+#reset-game {
+    width: 100%;
+    height: 6vw;
+}
+
 @media only screen and (min-width: 700px) {
     /* .index-buttons {
         width: 49.81%;

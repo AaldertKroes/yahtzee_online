@@ -48,6 +48,13 @@ diceButtons.forEach(die => die.addEventListener('click', evt => {
     (dice[die.id.slice(-1)].getLocked() ? document.getElementById(die.id).style.opacity = 0.5 : document.getElementById(die.id).style.opacity = 1.0);
 }));
 
+// Reset the score card
+const resetButton = document.getElementById("reset-game");
+resetButton.addEventListener('click', () => {
+    scoreCard.resetCard();
+    updateScorecard();
+})
+
 // Redirect to login.html
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener('click', evt => window.location.href = "./web_pages/login.html");
